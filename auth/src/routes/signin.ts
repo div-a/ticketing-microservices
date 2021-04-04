@@ -1,6 +1,5 @@
 import express, {Request, Response} from 'express';
 import {body, validationResult} from 'express-validator';
-import { RequestValidationError } from '../../../common/src/errors/request-validation-error';
 import jwt from 'jsonwebtoken';
 
 import {Password} from '../services/password'
