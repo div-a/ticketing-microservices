@@ -1,12 +1,11 @@
 import express, {Request, Response} from 'express';
 import {body, validationResult} from 'express-validator';
-import { RequestValidationError } from '../errors/request-validation-error';
+import { RequestValidationError } from '../../../common/src/errors/request-validation-error';
 import jwt from 'jsonwebtoken';
 
 import {Password} from '../services/password'
 import {User} from '../models/user'
-import { validateRequest } from '../middlewares/validate-request';
-import { BadRequestError } from '../errors/bad-request-error';
+import { validateRequest, BadRequestError } from '@divaltickets/common';
 
 const router = express.Router();
 
