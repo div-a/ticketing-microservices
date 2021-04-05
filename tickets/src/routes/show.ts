@@ -1,6 +1,5 @@
 import express, {Request, Response} from 'express';
 import { NotFoundError, requireAuth, validateRequest } from '@divaltickets/common';
-import { body } from 'express-validator'
 import { Ticket } from '../models/ticket';
 
 const router = express.Router();
