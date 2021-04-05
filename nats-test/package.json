@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@divaltickets/common": "^1.0.4",
     "@types/node": "^14.14.37",
     "node-nats-streaming": "^0.3.2",
     "ts-node-dev": "^1.1.6",
