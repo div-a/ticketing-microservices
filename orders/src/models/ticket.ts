@@ -12,6 +12,7 @@ interface TicketAttrs {
 
 interface TicketModel extends mongoose.Model<TicketDoc> {
     build(attrs: TicketAttrs): TicketDoc;
+    findByEvent(event: { id: string, version: number }): Promise<TicketDoc | null>
 }
 
 export interface TicketDoc extends mongoose.Document {
@@ -43,7 +44,12 @@ const ticketSchema = new mongoose.Schema({
 ticketSchema.set('versionKey', 'version');
 ticketSchema.plugin(updateIfCurrentPlugin);
 
-// Lets us typecheck when creating new user (don't call new User())
+ticketSchema.statics.findByEvent = (event: {id: string, version: number}) => {
+    return Ticket.findOne({
+        _id: event.id,
+        version: event.version - 1
+    })
+}
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
     return new Ticket({
         _id: attrs.id,
