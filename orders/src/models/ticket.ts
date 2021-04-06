@@ -1,22 +1,23 @@
-import mongoose from 'mongoose';
+import mongoose, { plugin } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 import { Order, OrderStatus } from './order';
 
-// Interface that describes properties to create a new ticket
+// Orders microservice also keeps track of subset of ticket attributes
+
 interface TicketAttrs {
     id: string;
     title: string;
     price: number;
 }
 
-// An interface that describes the properties the ticket model has
 interface TicketModel extends mongoose.Model<TicketDoc> {
     build(attrs: TicketAttrs): TicketDoc;
 }
 
-// An interface that describes the properties the ticket document has
 export interface TicketDoc extends mongoose.Document {
     title: string;
     price: number;
+    version: number;
     isReserved(): Promise<boolean>;
 }
 
@@ -38,6 +39,9 @@ const ticketSchema = new mongoose.Schema({
         }
     }
 });
+
+ticketSchema.set('versionKey', 'version');
+ticketSchema.plugin(updateIfCurrentPlugin);
 
 // Lets us typecheck when creating new user (don't call new User())
 ticketSchema.statics.build = (attrs: TicketAttrs) => {

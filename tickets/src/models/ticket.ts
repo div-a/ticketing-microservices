@@ -1,4 +1,5 @@
-import mongoose from 'mongoose';
+import mongoose, { plugin } from 'mongoose';
+import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 // Interface that describes properties to create a new ticket
 interface TicketAttrs {
@@ -17,6 +18,7 @@ interface TicketDoc extends mongoose.Document {
     title: string;
     price: number;
     userId: string;
+    version: number;
 }
 
 const ticketSchema = new mongoose.Schema({
@@ -41,6 +43,9 @@ const ticketSchema = new mongoose.Schema({
         }
     }
 });
+
+ticketSchema.set('versionKey', 'version');
+ticketSchema.plugin(updateIfCurrentPlugin);
 
 // Lets us typecheck when creating new user (don't call new User())
 ticketSchema.statics.build = (attrs: TicketAttrs) => {
