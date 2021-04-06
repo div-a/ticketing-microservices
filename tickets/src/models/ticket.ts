@@ -1,18 +1,18 @@
 import mongoose from 'mongoose';
 
-// Interface that describes properties to create a new User
+// Interface that describes properties to create a new ticket
 interface TicketAttrs {
     title: string;
     price: number;
     userId: string;
 }
 
-// An interface that describes the properties the user model has
+// An interface that describes the properties the ticket model has
 interface TicketModel extends mongoose.Model<TicketDoc> {
     build(attrs: TicketAttrs): TicketDoc;
 }
 
-// An interface that describes the properties the user document has
+// An interface that describes the properties the ticket document has
 interface TicketDoc extends mongoose.Document {
     title: string;
     price: number;
