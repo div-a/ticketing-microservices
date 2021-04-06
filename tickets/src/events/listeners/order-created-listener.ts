@@ -1,7 +1,6 @@
 import { Listener, Subjects, OrderCreatedEvent } from '@divaltickets/common';
 import { Message } from 'node-nats-streaming';
 import { Ticket } from '../../models/ticket';
-import { natsWrapper } from '../../nats-wrapper';
 import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher.';
 // import { Order } from '../../models/order';
 import { queueGroupName } from './queue-group-name';
